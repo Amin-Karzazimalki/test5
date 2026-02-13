@@ -1,0 +1,88 @@
+:root {
+  --dot-size: 6px;
+  --ring-size: 80px;
+  --dot-color: #ffffff;
+  --ring-color: rgba(242, 141, 53, 0.4);     /* #F28D35 avec transparence */
+  --glow-color: rgba(242, 141, 53, 0.25);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: none !important;
+}
+
+body {
+  height: 100vh;
+  background: #0f0f0f;
+  color: #eee;
+  font-family: system-ui, sans-serif;
+  overflow: hidden;
+}
+
+/* Curseur */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  will-change: transform, opacity;
+  transition: opacity 0.6s ease;
+}
+
+.cursor-dot {
+  width: var(--dot-size);
+  height: var(--dot-size);
+  background: var(--dot-color);
+  box-shadow: 0 0 10px var(--dot-color);
+  opacity: 0.9;
+}
+
+.cursor-ring {
+  width: var(--ring-size);
+  height: var(--ring-size);
+  border: 1px solid var(--ring-color);
+  opacity: 0;
+  box-shadow: 0 0 30px var(--glow-color);
+}
+
+/* Apparition du ring seulement quand la souris bouge */
+body.moving .cursor-ring {
+  opacity: 0.7;
+  transition: opacity 0.4s ease, transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Hover : glow + contraction du ring + point plus visible */
+.hover .cursor-dot {
+  transform: translate(-50%, -50%) scale(1.8);
+  box-shadow: 0 0 18px var(--glow-color);
+}
+
+.hover .cursor-ring {
+  transform: translate(-50%, -50%) scale(0.65);
+  opacity: 1 !important;
+  border-color: #F28D35;
+  box-shadow: 0 0 50px rgba(242, 141, 53, 0.45);
+}
+
+/* Contenu de la page */
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.link {
+  font-size: 6rem;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  padding: 1rem 2rem;
+}
